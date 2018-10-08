@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock Paper Scissors</title>
+</head>
+
+<body>
+	<script>
+	let choices=["rock","paper","scissors"]
+	
+	function computer_play(choices) {
+		var index = Math.floor(Math.random() * choices.length);
+		return choices[index];
+	}
+	
+	function play_round(playerSelection,computerSelection) {
+		playerSelection=playerSelection.toLowerCase();
+		
+		if (playerSelection === computerSelection) {
+			return 0; 
+		}
+		
+		switch (playerSelection) {
+			case 'rock': 
+				if (computerSelection === "paper") {
+					return -1;
+				} else {
+					return 1;
+				}
+			
+			case 'paper': 
+				if (computerSelection === "scissors") {
+					return -1;
+				} else {
+					return 1;
+				}
+				
+			case 'scissors': 
+				if (computerSelection === "rock") {
+					return -1;
+				} else {
+					return 1;
+				}
+			
+			default:
+				alert("Congrats. You broke it.");
+				break;
+		
+		}
+		
+	
+	}
+	
+	const playerSelection = "rock";
+	const computerSelection = computer_play(choices);
+	console.log(play_round(playerSelection, computerSelection));
+	
+	</script>
+	
+</body>
+
+
+
+
+</html>
