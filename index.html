@@ -18,6 +18,10 @@
 
 </div>
 
+<div id="result">
+
+</div>
+
 
 	<script>
 	let choices=["rock","paper","scissors"];
@@ -72,10 +76,15 @@
 		const result= play_round(playerSelection, computerSelection);
 		console.log(`${playerSelection} vs ${computerSelection}`);
 		add_score(result)
-		score=playerScore+" - "+computerScore;
-		console.log("Score: "+score);
+		display_score();
 	}
 
+	function display_score() {
+		const display = document.querySelector('#result');
+		score=playerScore+" - "+computerScore;
+		display.textContent=score;
+	
+	}
 	
 	if (playerScore===computerScore) {
 		console.log("Draw!");
