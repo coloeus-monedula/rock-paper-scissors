@@ -5,22 +5,8 @@
 </head>
 
 <body>
-<div class = "buttons"> 
-	<button id="rock">
-		Rock
-	</button>
-	<button id="paper"> 
-		Paper
-	</button>
-	<button id="scissors">
-		Scissors
-	</button>
-
-</div>
-
-
 	<script>
-	let choices=["rock","paper","scissors"];
+	let choices=["rock","paper","scissors"]
 	let playerScore= 0;
 	let computerScore= 0;
 	
@@ -63,60 +49,70 @@
 		}
 	}
 	
+	
+	function add_player_score(playerScore){
+		return playerScore+1	
+	}
+	
+	function add_computer_score(computerScore){
+		return computerScore+1
+	}
+	
 
 	
-	function play(playerSelection){
+	function play(){
+		let playerSelection = prompt("Rock, paper or scissors?");
+		if (playerSelection===null) {
+			return false;
+		}
+		playerSelection=playerSelection.toLowerCase();
 		const computerSelection = computer_play(choices);
 		const result= play_round(playerSelection, computerSelection);
 		console.log(`${playerSelection} vs ${computerSelection}`);
-		return result;
+		return result
+	
 	}
-
+	
+	let counter=5;
+	for (i=0; i<counter; i++) {
+		result=play();
+		if (result===false) {
+			break;
+		}
+		switch (result) {
+			case 0:
+			break;
+			
+			case 1:
+			playerScore=add_player_score(playerScore);
+			break;
+			
+			case -1:
+			computerScore=add_computer_score(computerScore);
+			break;
+			
+			default:
+			console.log("Broke.");
+		
+		}
+		score=playerScore+" - "+computerScore;
+		console.log("Score: "+score);
+		
+	}
 	
 	if (playerScore===computerScore) {
 		console.log("Draw!");
 	} else if (playerScore>computerScore){
 		console.log("Player wins");
 	} else {
-		console.log("Computer wins");
+		console.log("Computer wins")
 	}
 	
-	function add_score(result) {
-		switch (result) {
-		case 0:
-			break;
-			
-		case 1:
-			playerScore+=1;
-			break;
-			
-		case -1:
-			computerScore+=1;
-			break;
-			
-		default:
-			console.log("Broke.");
-			
-			}
-	}
-	
-	const myButtons = document.querySelector('.buttons');
-	
-	myButtons.addEventListener("click", function (e){
-		let playerSelection = e.target.textContent;		//retrieves info of element
-		playerSelection=playerSelection.trim().toLowerCase(); //removes whitespace
-		result=play(playerSelection);
-		add_score(result);
-		score=playerScore+" - "+computerScore;
-		console.log("Score: "+score);
-	});
-	
-
 	</script>
 	
 </body>
 
 
-<!-- https://stackoverflow.com/questions/30460233/how-to-find-out-which-event-listener-has-fired -->
+
 
 </html>
