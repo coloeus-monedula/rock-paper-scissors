@@ -65,11 +65,15 @@
 	
 
 	
-	function play(playerSelection){
+	function play(e){
+		let playerSelection = e.target.textContent;		//retrieves info of element
+		playerSelection=playerSelection.trim().toLowerCase(); //removes whitespace
 		const computerSelection = computer_play(choices);
 		const result= play_round(playerSelection, computerSelection);
 		console.log(`${playerSelection} vs ${computerSelection}`);
-		return result;
+		add_score(result)
+		score=playerScore+" - "+computerScore;
+		console.log("Score: "+score);
 	}
 
 	
@@ -102,14 +106,7 @@
 	
 	const myButtons = document.querySelector('.buttons');
 	
-	myButtons.addEventListener("click", function (e){
-		let playerSelection = e.target.textContent;		//retrieves info of element
-		playerSelection=playerSelection.trim().toLowerCase(); //removes whitespace
-		result=play(playerSelection);
-		add_score(result);
-		score=playerScore+" - "+computerScore;
-		console.log("Score: "+score);
-	});
+	myButtons.addEventListener("click", play);
 	
 
 	</script>
