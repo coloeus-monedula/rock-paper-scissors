@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Rock Paper Scissors</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -17,9 +18,14 @@
 	</button>
 
 </div>
-
+<br>
 <div id="result">
-
+</div>
+<br>
+<div id="score"> 
+</div>
+<br>
+<div id="reset">
 </div>
 
 
@@ -61,7 +67,6 @@
 				}
 			
 			default:
-				alert("Congrats. You broke it.");
 				break;
 		
 		}
@@ -70,28 +75,53 @@
 
 	
 	function play(e){
+		if (!e.target.id) return;
 		let playerSelection = e.target.textContent;		//retrieves info of element
 		playerSelection=playerSelection.trim().toLowerCase(); //removes whitespace
 		const computerSelection = computer_play(choices);
 		const result= play_round(playerSelection, computerSelection);
-		console.log(`${playerSelection} vs ${computerSelection}`);
+		const verdict= document.querySelector('#result');
+		verdict.textContent=`Player chose ${playerSelection}! Computer chose ${computerSelection}!`;
 		add_score(result)
 		display_score();
 	}
 
 	function display_score() {
-		const display = document.querySelector('#result');
+		const display = document.querySelector('#score');
 		score=playerScore+" - "+computerScore;
 		display.textContent=score;
 	
 	}
 	
-	if (playerScore===computerScore) {
-		console.log("Draw!");
-	} else if (playerScore>computerScore){
-		console.log("Player wins");
-	} else {
-		console.log("Computer wins");
+	function declare_verdict(e){
+		if (!e.target.id || playerScore <5 && computerScore <5) return;
+		const verdict=document.querySelector('#result');
+		if (playerScore===computerScore) {
+			result.innerHTML +="<p>Draw! Which shouldn't happen. Something's gone wrong.";
+		} else if (playerScore>computerScore){
+			result.innerHTML +="<p>Player wins";
+		} else {
+			result.innerHTML +="<p>Computer wins";
+		}
+		
+		document.getElementById("reset").innerHTML = "<button onclick=\"reset()\">Reset</button>";
+		document.getElementById("rock").disabled = true;
+		document.getElementById("paper").disabled = true;
+		document.getElementById("scissors").disabled = true;
+		
+	}
+	
+	function reset() {
+		playerScore=0;
+		computerScore=0;
+		document.getElementById("result").innerHTML = "";
+		document.getElementById("score").innerHTML = "";
+		document.getElementById("rock").disabled = false;
+		document.getElementById("paper").disabled = false;
+		document.getElementById("scissors").disabled = false;
+		document.getElementById("reset").innerHTML = "";
+		
+	
 	}
 	
 	function add_score(result) {
@@ -108,7 +138,7 @@
 			break;
 			
 		default:
-			console.log("Broke.");
+			console.log("Clicked on space inbetween.");
 			
 			}
 	}
@@ -116,7 +146,7 @@
 	const myButtons = document.querySelector('.buttons');
 	
 	myButtons.addEventListener("click", play);
-	
+	myButtons.addEventListener("click",declare_verdict);
 
 	</script>
 	
